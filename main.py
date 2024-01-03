@@ -3,7 +3,10 @@ import json
 import requests
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, XSD, RDFS
-from parse import parseProfessionalServiceJson
+from parse import parseProfessionalServiceJson, findfile
+from restaurant_checker import check_through_restaurants
+from server import init_serv
+import uvicorn
 
 
 # ProfessionalService
@@ -13,6 +16,7 @@ if __name__ == "__main__":
 
     directory = os.listdir()
     g = Graph()
+    app = None
 
     sh = "https://schema.org/"
     ex = "http://www.example.com/"
@@ -27,7 +31,7 @@ if __name__ == "__main__":
 
     if process_mode == "1":
         url = input("Please enter the URL you want :\nPlease be sure to use a URL with a JSON format\naccording to the format seen in the course\n>>>")
-        if url[1:4] != "http":
+        if url[0:3] != "http":
             print("Wrong url Format, going with default\nhttps://coopcycle.org/coopcycle.json?_=1700830898800\n")
             url = "https://coopcycle.org/coopcycle.json?_=1700830898800"
         response = requests.get(url)
@@ -50,3 +54,9 @@ if __name__ == "__main__":
                 parseProfessionalServiceJson(city, g)
 
     print(g.serialize())
+
+    #check_through_restaurants(g)
+
+
+    app = init_serv(app=app, g=g)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
