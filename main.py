@@ -3,15 +3,18 @@ import json
 import requests
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, XSD, RDFS
-from parse import parseProfessionalServiceJson, findfile
+from collect import parseProfessionalServiceJson, findfile
 from restaurant_checker import check_through_restaurants
-from server import init_serv
+from server_data.server import init_serv
 import uvicorn
 
 
 # ProfessionalService
 
 if __name__ == "__main__":
+
+
+
     print("let's start")
 
     directory = os.listdir()
@@ -53,10 +56,16 @@ if __name__ == "__main__":
             for city in data:
                 parseProfessionalServiceJson(city, g)
 
-    print(g.serialize())
+    #print(g.serialize())
 
     #check_through_restaurants(g)
 
+    r = input("Do you want to save the current data parsed ? (y/n)")
+
+    if r in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+        g.serialize(destination=".server_data/data_semweb.db", format="turtle")
+
+    
 
     app = init_serv(app=app, g=g)
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="localhost", port=8000)
