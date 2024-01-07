@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from rdflib import Graph, URIRef, Literal
+from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import RDF, XSD, RDFS
 import pyshacl
 
@@ -23,6 +23,13 @@ def parseProfessionalServiceJson(d, g):
     if  (subject_uri, None, None) not in g:
         g_to_be_checked.add((URIRef(ex+d['name']), RDF.type, URIRef(sh+"ProfessionalService")))
         g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"legalName"), Literal(d['name'])))
+        if 'coopcycle_url' in d:
+            # Create a blank node for the membership information
+            membership_node = BNode()
+            g_to_be_checked.add((URIRef(ex + d['name']), URIRef(sh + "memberOf"), membership_node))
+            g_to_be_checked.add((membership_node, RDF.type, URIRef(sh + "Organization")))
+            g_to_be_checked.add((membership_node, URIRef(sh + "name"), Literal("coopcycle")))
+            g_to_be_checked.add((membership_node, URIRef(sh + "url"), Literal(d['coopcycle_url'])))
         if 'latitude' in d:
             g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"latitude"), Literal(d['latitude'], datatype=XSD.decimal)))
         if 'longitude' in d:
@@ -48,15 +55,17 @@ def parseProfessionalServiceJson(d, g):
                 g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(v, lang=k)))
     #g.add(())
             
-        shapes_graph = Graph()
-        shapes_graph.parse("shecl_template/coopcycle_shape.ttl", format="turtle")
+        if len(g_to_be_checked) != 0:
+            #print(g_to_be_checked.serialize())
+            shapes_graph = Graph()
+            shapes_graph.parse("shacl_template/coopcycle_shape.ttl", format="turtle")
 
-        conforms, _, _ = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="format")
-        if not conforms:
-            print(f"Data for {subject_uri} does not conform to the SHACL model. Skipping...")
+            conforms, _, _ = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="turtle")
+            if not conforms:
+                print(f"Data for {subject_uri} does not conform to the SHACL model. Skipping...")
 
-        else:
-            g += g_to_be_checked
+            else:
+                g += g_to_be_checked
 
 # ProfessionalService
 

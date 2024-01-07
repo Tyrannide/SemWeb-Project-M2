@@ -1,0 +1,38 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+schema:ProfessionalServiceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:ProfessionalService ;
+    sh:property [
+        sh:path schema:latitude ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:longitude ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:legalName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] .
+
+schema:OrganizationShape
+    a schema:NodeShape ;
+    schema:targetClass schema:Organization ;
+    schema:property [
+        schema:path schema:name ;
+        schema:datatype xsd:string ;
+        schema:minCount 1 ;
+    ] ;
+    schema:property [
+        schema:path schema:url ;
+        schema:datatype xsd:anyURI ;
+        schema:minCount 1 ;
+    ] .

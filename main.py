@@ -34,11 +34,12 @@ if __name__ == "__main__":
 
     if process_mode == "1":
         url = input("Please enter the URL you want :\nPlease be sure to use a URL with a JSON format\naccording to the format seen in the course\n>>>")
-        if url[0:3] != "http":
+        if url[0:4] != "http":
             print("Wrong url Format, going with default\nhttps://coopcycle.org/coopcycle.json?_=1700830898800\n")
             url = "https://coopcycle.org/coopcycle.json?_=1700830898800"
         response = requests.get(url)
         data = json.loads(response.text)
+        print(data)
         for city in data:
             parseProfessionalServiceJson(city, g)
     else:   
