@@ -1,12 +1,13 @@
 import os
 import json
 import requests
-from rdflib import Graph, URIRef, Literal
+from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import RDF, XSD, RDFS
-from collect import parseProfessionalServiceJson, findfile, parseRestaurantData, parseMenu
-from restaurant_checker import check_through_restaurants
+from collect import parseProfessionalServiceJson, findfile
+from restaurant_checker import  parseRestaurantData, parseMenu
 from server_data.server import init_serv
 import uvicorn
+from urllib.parse import urlsplit
 
 
 # ProfessionalService
@@ -21,6 +22,7 @@ if __name__ == "__main__":
     g = Graph()
     app = None
     add = 0
+    added = []
 
     print("Looking for existing data\n")
     if os.path.exists("server_data/data_semweb.db"):
@@ -48,19 +50,72 @@ if __name__ == "__main__":
             url = "https://coopcycle.org/coopcycle.json?_=1700830898800"
         response = requests.get(url)
         data = json.loads(response.text)
-        if 'coopcycle_url' in data:
+        #print(data)
+        if isinstance(data, list):
+            to_check = data[0]
+        else:
+            to_check = data
+        if 'coopcycle_url' in to_check:
             print("Identified data as coopcycle information\n")
             for city in data:
-                add += parseProfessionalServiceJson(city, g)
+                if parseProfessionalServiceJson(city, g) > 0:
+                    add += 1
+                    added.append(city)
             else:
                 print(f"We added {add} element from coopcycle partnership")
+
+            process = input("Do you want to read the data of all partner registered ?(y/n)\n>>>")
+            if process in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+                for c in added:
+                    urlGroupOfRestaurant = c['coopcycle_url'] + '/api/restaurants'
+                    response = requests.get(urlGroupOfRestaurant)
+                    data = json.loads(response.text)
+                    if 'hydra:member' in data:
+                        for item in data['hydra:member']:
+                                urlOfRestaurant = "{0.scheme}://{0.netloc}".format(urlsplit(urlGroupOfRestaurant)) +  item['@id']
+                                try:
+                                    rResponse = requests.get(urlOfRestaurant)
+                                    rResponse.raise_for_status()
+                                    rData = json.loads(rResponse.text)
+                                    add += parseRestaurantData(rData, g)
+                                except requests.exceptions.HTTPError as errh:
+                                    print ("HTTP Error:", errh)
+                                except requests.exceptions.ConnectionError as errc:
+                                    print ("Error Connecting:", errc)
+                                    # Handle connection error
+
+                                except requests.exceptions.Timeout as errt:
+                                    print ("Timeout Error:", errt)
+                                    # Handle timeout error
+
+                                except requests.exceptions.RequestException as err:
+                                    print ("Something went wrong:", err)
+                                
+                    else:
+                        print(f"No Restaurants found for {c['name']}, request sent :\n{response.text}")
+
         else:
             print("Considering data as restaurant data\n")
             if '@context' in data:
                 if data['@context'] == '/api/contexts/Menu':
-                    add += parseMenu(data, g)
+                    restau = input("Menu context found, from what Restaurant does the menu comes ?\n>>>")
+                    subject_uri = URIRef(ex + restau)
+                    if  (subject_uri, None, None) not in g:
+                        print(f"Restaurant {restau} was not found, cannot add the menu data to inexistant element")
+                    else:
+                        menu_node = BNode()
+                        g.add((subject_uri, URIRef(sh+'hasMenu'), menu_node))
+                        add += parseMenu(data, g, menu_node)
                 elif data['@context'] == '/api/contexts/Restaurant':
-                    add += parseRestaurantData(data, g)
+                    #print(data)
+                    if 'hydra:member' in data:
+                        for item in data['hydra:member']:
+                            urlOfRestaurant = "{0.scheme}://{0.netloc}".format(urlsplit(url)) + item['@id']
+                            rResponse = requests.get(urlOfRestaurant)
+                            rData = json.loads(rResponse.text)
+                            add += parseRestaurantData(rData, g)
+                    else:
+                        add += parseRestaurantData(data, g)
                 else:
                     print("Unknown context, can't process the data")
             else :
@@ -81,20 +136,22 @@ if __name__ == "__main__":
                 data = json.load(f)
                 for city in data:
                     parseProfessionalServiceJson(city, g)
-
-            r = input("Do you want to save the current data parsed ? (y/n)")
-
-            if r in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
-                g.serialize(destination=".server_data/data_semweb.db", format="turtle")
         else :
             print("Given file wasn't from an expected format, please use JSON files\n")
 
     #print(g.serialize())
 
     #check_through_restaurants(g)
+            
 
     
     if len(g) != 0:
+
+        r = input("Do you want to save the current data parsed ? (y/n)")
+
+        if r in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+            g.serialize(destination=".server_data/data_semweb.db", format="turtle")
+        
         rep = input("Do you want to run the TripleStore ? (y/n)")
 
         if rep in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:

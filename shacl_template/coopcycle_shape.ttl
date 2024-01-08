@@ -9,30 +9,63 @@ schema:ProfessionalServiceShape
     sh:targetClass schema:ProfessionalService ;
     sh:property [
         sh:path schema:latitude ;
-        sh:datatype xsd:decimal ;
+        sh:datatype xsd:double ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path schema:longitude ;
-        sh:datatype xsd:decimal ;
+        sh:datatype xsd:double ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path schema:legalName ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:areaServed ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:contactPoint ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:email ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path schema:knowsLanguage ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:location ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:memberOf ;
+        sh:node schema:OrganizationShape ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:url ;
+        sh:datatype xsd:anyURI ;
     ] .
 
 schema:OrganizationShape
-    a schema:NodeShape ;
-    schema:targetClass schema:Organization ;
-    schema:property [
-        schema:path schema:name ;
-        schema:datatype xsd:string ;
-        schema:minCount 1 ;
+    a sh:NodeShape ;
+    sh:targetClass schema:Organization ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
     ] ;
-    schema:property [
-        schema:path schema:url ;
-        schema:datatype xsd:anyURI ;
-        schema:minCount 1 ;
+    sh:property [
+        sh:path schema:url ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1 ;
     ] .
