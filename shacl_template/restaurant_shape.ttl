@@ -1,0 +1,52 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+schema:RestaurantShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Restaurant ;
+    sh:property [
+        sh:path schema:address ;
+        sh:node [
+            sh:property [
+                sh:path schema:address ;
+                sh:node [
+                    sh:property [
+                        sh:path schema:address ;
+                        sh:node [
+                            sh:property [
+                                sh:path schema:latitude ;
+                                sh:datatype xsd:decimal ;
+                            ] ;
+                            sh:property [
+                                sh:path schema:longitude ;
+                                sh:datatype xsd:decimal ;
+                            ] ;
+                        ] ;
+                    ] ;
+                ] ;
+            ] ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path schema:hasMenu ;
+        sh:node [
+            sh:property [
+                sh:path schema:hasMenuItem ;
+                sh:node [
+                    sh:property [
+                        sh:path schema:price ;
+                        sh:datatype xsd:decimal ;
+                    ] ;
+                ] ;
+            ] ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path schema:openingHours ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path schema:servesCuisine ;
+        sh:datatype xsd:string ;
+    ] .
