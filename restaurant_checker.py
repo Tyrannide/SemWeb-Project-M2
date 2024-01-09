@@ -29,8 +29,10 @@ def parseRestaurantData(d, g):
     # Pre-set up
     if  (subject_uri, None, None) not in g:
         g_to_be_checked.add((URIRef(ex+d['name']), RDF.type, URIRef(sh+"Restaurant")))
-        g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(d['description'])))
-        g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"nextOpeningDate"), Literal(d['nextOpeningDate'])))
+        if 'description' in d:
+            g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(d['description'])))
+        if 'nextOpeningDate' in d:
+            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"nextOpeningDate"), Literal(d['nextOpeningDate'])))
         # Process the address
         address_node = BNode()
         g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"address"), address_node))
@@ -80,61 +82,8 @@ def parseRestaurantData(d, g):
                             g_to_be_checked.add((membership_node, URIRef(sh + "url"), Literal(str(e[2]), datatype=XSD.anyURI)))
                     
     else:
-
-        #print(g_to_be_checked.serialize())
-        print("Data already existing : Updating the old value")
-        g.remove((subject_uri, None, None))
-        g_to_be_checked.add((URIRef(ex+d['name']), RDF.type, URIRef(sh+"Restaurant")))
-        g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(d['description'])))
-        g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"nextOpeningDate"), Literal(d['nextOpeningDate'])))
-        # Process the address
-        address_node = BNode()
-        g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"address"), address_node))
-        g_to_be_checked.add((address_node, RDF.type, URIRef(sh+"Place")))
-        g_to_be_checked.add((address_node, URIRef(sh+"latitude"), Literal(d['address']['geo']['latitude'], datatype=XSD.decimal)))
-        g_to_be_checked.add((address_node, URIRef(sh+"longitude"), Literal(d['address']['geo']['longitude'], datatype=XSD.decimal)))
-        g_to_be_checked.add((address_node, URIRef(sh+"address"), Literal(d['address']['streetAddress'])))
-        if 'tags' in d:     
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"servesCuisine"), Literal(', '.join(d['tags']))))
-
-        if 'fulfillmentMethods' in d:
-            for el in d['fulfillmentMethods']:
-                if el['type'] == 'delivery':
-                    g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"openingHours"), Literal(', '.join(el['openingHours']))))
-
-        if 'hasMenu' in d:
-            if 'potentialAction' in d:
-                print("Trying to read Menu")
-                urlOfMenu = "{0.scheme}://{0.netloc}".format(urlsplit(d['potentialAction']['target']['urlTemplate'])) + d['hasMenu']
-                response = requests.get(urlOfMenu)
-                data = json.loads(response.text)
-                menu_node = BNode()
-                g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+'hasMenu'), menu_node))
-                if 'hasMenuSection' in data:
-                    for item in data['hasMenuSection']:
-                        for food in item['hasMenuItem']:
-                            added += parseMenu(food, g_to_be_checked, menu_node)
-                else:
-                    print(f"No menu found for {d['name']}")
-
-        sorting = list(g.triples((None, URIRef(sh+ "legalName"), None)))
-        for s in sorting:
-            first_level = list(g.triples((s[0], URIRef(sh+ "memberOf"), None)))
-            #print("debugging", first_level)
-            if len(first_level) > 0:
-                for el in first_level:
-                    final_level = list(g.triples((el[2], URIRef(sh+ "url"), None)))
-                    for e in final_level:
-                        check = "{0.scheme}://{0.netloc}".format(urlsplit(d['potentialAction']['target']['urlTemplate']))
-                        #print(e[2], "/", check)
-                        if check == str(e[2]):
-                            membership_node = BNode()
-                            g_to_be_checked.add((URIRef(ex + d['name']), URIRef(sh + "memberOf"), membership_node))
-                            g_to_be_checked.add((membership_node, RDF.type, URIRef(sh + "ProfessionalService")))
-                            #print(el)
-                            g_to_be_checked.add((membership_node, URIRef(sh + "name"), Literal(str(list(g.triples((el[0], URIRef(sh+"legalName"), None)))[0][2]))))
-                            g_to_be_checked.add((membership_node, URIRef(sh + "url"), Literal(str(e[2]), datatype=XSD.anyURI)))
-
+        print("Data already existing")
+        
     if len(g_to_be_checked) != 0:
             #print(g_to_be_checked.serialize())
             shapes_graph = Graph()

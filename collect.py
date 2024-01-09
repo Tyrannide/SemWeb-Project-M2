@@ -66,57 +66,25 @@ def parseProfessionalServiceJson(d, g):
                 g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(v, lang=k)))
 
     else:
-        print("Data already existing : Updating the old value")
-        g.remove((subject_uri, None, None))
-        g_to_be_checked.add((URIRef(ex+d['name']), RDF.type, URIRef(sh+"ProfessionalService")))
-        g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"legalName"), Literal(d['name'])))
-        if 'coopcycle_url' in d:
-            # Create a blank node for the membership information
-            membership_node = BNode()
-            g_to_be_checked.add((URIRef(ex + d['name']), URIRef(sh + "memberOf"), membership_node))
-            g_to_be_checked.add((membership_node, RDF.type, URIRef(sh + "Organization")))
-            g_to_be_checked.add((membership_node, URIRef(sh + "name"), Literal("coopcycle")))
-            g_to_be_checked.add((membership_node, URIRef(sh + "url"), Literal(d['coopcycle_url'], datatype=XSD.anyURI)))
-        if 'latitude' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"latitude"), Literal(d['latitude'], datatype=XSD.double)))
-        if 'longitude' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"longitude"), Literal(d['longitude'], datatype=XSD.double)))
-        if 'url' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"url"),  Literal(d['url'], datatype=XSD.anyURI)))
-            #TODO Fouille et collecte des données des sites pour avoir les restaurants
-        if 'mail' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"email"), Literal(d['mail'])))
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"contactPoint"), Literal(d['mail'])))
-        if 'city' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"location"), Literal(d['city'])))
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"areaServed"), Literal(d['city'])))
-        if 'country' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"knowsLanguage"), Literal(d['country'])))
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"containedInPlace"), Literal(d['country'])))
-        if 'facebook_url' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"contactPoint"), Literal(d['facebook_url'])))
-        if 'twitter_url' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"contactPoint"), Literal(d['twitter_url'])))
-        if 'text' in d:
-            for k, v in d['text'].items():
-                g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(v, lang=k)))
+        print("Data already existing")
 
 
     #g.add(())
             
-        if len(g_to_be_checked) != 0:
-            #print(g_to_be_checked.serialize())
-            shapes_graph = Graph()
-            shapes_graph.parse("shacl_template/coopcycle_shape.ttl", format="turtle")
+    if len(g_to_be_checked) != 0:
+        #print(g_to_be_checked.serialize())
+        shapes_graph = Graph()
+        shapes_graph.parse("shacl_template/coopcycle_shape.ttl", format="turtle")
 
-            conforms, _, result_text = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="turtle")
-            if not conforms:
-                print(f"Data for {subject_uri} does not conform to the SHACL model. Skipping...")
-                #print(result_text)
+        conforms, _, result_text = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="turtle")
+        if not conforms:
+            print(f"Data for {subject_uri} does not conform to the SHACL model. Skipping...")
+            #print(result_text)
 
-            else:
-                added += 1
-                g += g_to_be_checked
+        else:
+            added += 1
+            g += g_to_be_checked
+
     return added
 
 
