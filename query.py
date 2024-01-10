@@ -1,7 +1,7 @@
 # pip install sparqlwrapper
 # pip install geopy
 import SPARQLWrapper as spq
-from datetime import datetime
+from datetime import datetime, time
 from geopy import Nominatim
 from geopy.distance import geodesic
 import sys
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     orderQuery = ""
     sortingDistance = False
 
-    if len(sys.argv) == 3:
+    """if len(sys.argv) == 3:
         print("Requête simple trier soit par prix, soit par distance")
         if '--ranked-by' and 'distance' in sys.argv:
             print("Filtre par distance")
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     else:
         usage()
         exit()
-
+    """
     print('Argument List:', str(sys.argv))
 
     day_index = {"Mo" : 1,"Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7}
@@ -60,7 +60,8 @@ if __name__ == "__main__":
     date = str(date.strftime("%A"))[:2]
 
 
-    hours = "11:45:00"
+    hours = "11:45"
+    hours = hours.split(":")
 
     # doc : https://sparqlwrapper.readthedocs.io/en/latest/main.html#command-line-script
     sparq = spq.SPARQLWrapper("http://localhost:8000") 
@@ -100,61 +101,44 @@ if __name__ == "__main__":
         OFFSET 0        
         """)
 
-    # classique
-    # sparq.setQuery(f"""
-    #     PREFIX schema: <https://schema.org/>
-
-    #     SELECT DISTINCT ?restaurant ?latitude ?longitude
-    #     WHERE {{
-    #             ?restaurant a schema:Restaurant ;
-    #             schema:address ?ad ;
-    #             schema:potentialAction ?p ;
-    #             schema:openingHours ?open .
-
-    #             ?p a schema:priceSpecification ;
-    #             schema:eligibleTransactionVolume ?p2 .
-
-    #             ?p2 schema:price ?price .
-                
-    #             BIND(STRBEFORE(?open, " ") AS ?days).
-    #             BIND(MAP({
-    #                 "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
-    #             })[STRBEFORE(?days, "-")] AS ?dayStart).
-    #             BIND(MAP({
-    #                 "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
-    #             })[STRAFTER(?days, "-")] AS ?dayEnd) .
-                
-    #             BIND(STRAFTER(?open, " ") AS ?hours).
-    #             BIND(CONCAT(STRBEFORE(?hours, "-"),":00") AS ?hStart).
-    #             BIND(CONCAT(STRAFTER(?hours, "-"),":00") AS ?hEnd).
-                                
-    #             ?ad a schema:Place ;
-    #             schema:latitude ?latitude;
-    #             schema:longitude ?longitude .
-                
-    #             FILTER (
-    #                 ?price < {max_price} &&
-    #                 ?dayStart <= {day_index[date]} &&
-    #                 ?dayEnd >= {day_index[date]} &&
-    #                 xsd:time(?hStart) <= xsd:time({hours}) &&
-    #                 xsd:time(?hEnd) >= xsd:time({hours})
-    #             )
-    #     }} 
-    # """)
-
     sparq.setReturnFormat(spq.JSON)
     res = sparq.query().convert()
-    
-    # voir à quoi le retour ressemble pour la boucle de tri (distance)
-   
-    #for r in res["results"]["bindings"]:
-    #    print(geodesic(adress, (float(r["latitude"]["value"]),float(r["longitude"]["value"]))).kilometers)
-    #    exit()
-    
+
     results = [r for r in res["results"]["bindings"] if geodesic(adress, (float(r["latitude"]["value"]),float(r["longitude"]["value"]))).kilometers <= max_range]
     if sortingDistance:
         results.sort(key=lambda r: geodesic(adress, (float(r["latitude"]["value"]), float(r["longitude"]["value"]))).kilometers)
     for r in results :
         print(r)
+    
+    res_hours = []
+    for r in results :
+        # print(r["hours"]["value"])
+        
+        for tmp in r["hours"]["value"].split(", ") :
+            day_open = []
+            # print("\t"+t)
+            dtmp,htmp = tmp.split(" ")
+            d = dtmp.split(",")
+
+            for x in d :
+                if len(x) == 2 :
+                    tmptab = [day_index[x]]
+                else :
+                    x = x.split("-")
+                    tmptab = [j for j in range(day_index[x[0]],day_index[x[1]]+1)]
+                day_open += tmptab
+
+            # print(f"\t\t{day_open}")
+            if day_index[date] in day_open :
+                htmp = htmp.split("-")
+                htmpS = htmp[0].split(":")
+                htmpE = htmp[1].split(":")
+                #print(f"\t\t{htmpS[0]} : {htmpS[1]}")
+                if time(int(htmpS[0]),int(htmpS[1])) <= time(int(hours[0]),int(hours[1])) <= time(int(htmpE[0]),int(htmpE[1])):
+                    res_hours.append(r)
+    
+    for i in res_hours :
+        print(i)
+
 
     
