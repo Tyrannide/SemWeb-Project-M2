@@ -1,0 +1,19 @@
+@prefix ex: <http://www.example.com/> .
+@prefix sh1: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Alexandre-Marine a sh1:Person ;
+    sh1:address [ a sh1:PostalAddress ;
+            sh1:addressLocality "Saint-Etienne" ;
+            sh1:postalCode "42000" ;
+            sh1:streetAddress "26 rue Désiré Claude" ] ;
+    sh1:name "Alexandre Marine" ;
+    sh1:seeks [ sh1:availableAtOrFrom [ sh1:geoWithin [ a sh1:GeoCircle ;
+                            sh1:geoMidpoint [ sh1:latitude 4.3890473 ;
+                                    sh1:longitude 45.4283584 ] ;
+                            sh1:geoRadius 4000.0 ] ] ;
+            sh1:itemOfferred "['Q177']" ;
+            sh1:priceSpecification [ sh1:maxPrice 20.0 ;
+                    sh1:priceCurrency "EUR" ] ;
+            sh1:seller "https://coursiers-stephanois.coopcycle.org/api/restaurants/20" ] .
+

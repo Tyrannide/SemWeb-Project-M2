@@ -20,7 +20,7 @@ def findfile(name, path):
 
 # ProfessionalService
 def parseProfessionalServiceJson(d, g):
-    sh = "https://schema.org/"
+    sh = "http://schema.org/"
     ex = "http://www.example.com/"
     d['name'] = d['name'].replace(" ", "-")
     d['name'] = d['name'].replace('"', "")
@@ -28,6 +28,8 @@ def parseProfessionalServiceJson(d, g):
     g_to_be_checked = Graph()
     added = 0
 
+    g_to_be_checked.bind("sh", sh)
+    g_to_be_checked.bind("ex", ex)
 
     subject_uri = URIRef(ex + d['name'])
 
@@ -108,7 +110,7 @@ if __name__ == "__main__":
         print("No existing data found\n")
         exist = False
 
-    sh = "https://schema.org/"
+    sh = "http://schema.org/"
     ex = "http://www.example.com/"
 
     # Setting up variable

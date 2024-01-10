@@ -13,7 +13,7 @@ def parseRestaurantData(d, g):
     
     added = 0
     g_to_be_checked = Graph()
-    sh = "https://schema.org/"
+    sh = "http://schema.org/"
     ex = "http://www.example.com/"
 
     if 'specialOpeningHoursSpecification' in d:
@@ -148,7 +148,7 @@ def parseRestaurantData(d, g):
 
 def parseMenu(d,g,n):
 
-    sh = "https://schema.org/"
+    sh = "http://schema.org/"
     ex = "http://www.example.com/"
 
 

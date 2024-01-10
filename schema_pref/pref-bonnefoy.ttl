@@ -1,0 +1,30 @@
+@prefix schema: <http://schema.org/> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+
+<#me>
+    a schema:Person ;
+    schema:name "Pierre Bonnefoy" ;
+    schema:address [
+        a schema:PostalAddress ;
+        schema:postalCode "42000" ;
+        schema:streetAddress "50 rue Conte Grandchamp";
+        schema:addressLocality "Saint-Etienne" 
+    ] ;
+    schema:seeks [
+        schema:seller <https://coursiers-stephanois.coopcycle.org/api/restaurants/24> ;
+        schema:priceSpecification [
+            schema:maxPrice 30 ;
+            schema:priceCurrency "EUR"
+        ] ;
+        schema:availableAtOrFrom [
+            schema:geoWithin [
+                a schema:GeoCircle ;
+                schema:geoMidpoint [
+                    schema:longitude 45.43720 ;
+                    schema:latitude 4.40461
+                ] ;
+                schema:geoRadius 5000
+            ]
+        ] ;
+        schema:itemOfferred wd:Q177
+    ] .

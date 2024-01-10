@@ -38,7 +38,7 @@ if __name__ == "__main__":
         print("No existing data found\n")
         exist = False
 
-    sh = "https://schema.org/"
+    sh = "http://schema.org/"
     ex = "http://www.example.com/"
 
     # Setting up variable
