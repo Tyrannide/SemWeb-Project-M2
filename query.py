@@ -276,6 +276,41 @@ if __name__ == "__main__":
         affiche_restau(res_distHour)
         print("#" * terminal_width)
 
+
+        if input("Do you want to export the result in a file? [ it has better visibility ](y/n)") in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+            with open('log_file.txt', 'w', encoding='utf-8') as f:
+                f.write("#" * terminal_width+ "\n")
+                f.write("All restaurant meeting all requirements :\n")
+                for r in res_all:
+                    f.write("|\tRestaurant : " + r['restaurant']['value'].split('/')[-1] + "\n")
+                    f.write("|\t\t| Opening hours : " + r['hours']['value'] + "\n")
+                    f.write("|\t\t| Delivery price : " + r['deliveryPrice']['value'] + "\n")
+                    f.write("|\t\t| Minimal cost for delivery : " + r['deliveryMinimalCost']['value'] + "\n")
+                    if 'food' in r:
+                        if r['food']['value'] != "":
+                           f.write("|\t\t| Type of food served : " + r['food']['value'] + "\n")
+                f.write("#" * terminal_width + "\n")
+                f.write("Restaurants meeting both price and hours :\n")
+                for r in res_priceHour:
+                    f.write("|\tRestaurant : " + r['restaurant']['value'].split('/')[-1] + "\n")
+                    f.write("|\t\t| Opening hours : " + r['hours']['value'] + "\n")
+                    f.write("|\t\t| Delivery price : " + r['deliveryPrice']['value'] + "\n")
+                    f.write("|\t\t| Minimal cost for delivery : " + r['deliveryMinimalCost']['value'] + "\n")
+                    if 'food' in r:
+                        if r['food']['value'] != "":
+                           f.write("|\t\t| Type of food served : " + r['food']['value'] + "\n")
+                f.write("#" * terminal_width + "\n")
+                f.write("Restaurant meeting both distance and hours :\n")
+                for r in res_distHour:
+                    f.write("|\tRestaurant : " + r['restaurant']['value'].split('/')[-1] + "\n")
+                    f.write("|\t\t| Opening hours : " + r['hours']['value'] + "\n")
+                    f.write("|\t\t| Delivery price : " + r['deliveryPrice']['value'] + "\n")
+                    f.write("|\t\t| Minimal cost for delivery : " + r['deliveryMinimalCost']['value'] + "\n")
+                    if 'food' in r:
+                        if r['food']['value'] != "":
+                           f.write("|\t\t| Type of food served : " + r['food']['value'] + "\n")
+            print("Export done!")
+
     else:
         exit(-1)
 

@@ -1,0 +1,735 @@
+###########################################################################################################################################################################################################################################################################
+All restaurant meeting all requirements :
+|	Restaurant : La-Fleur-au-Fusil
+|		| Opening hours : Mo-Fr 11:00-15:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 12.00
+|		| Type of food served : Bistrot, Française, Saine, Fait maison, Locale, Biologique, Sandwiches, Végétarienne
+|	Restaurant : Pokawa
+|		| Opening hours : Mo-Fr 11:00-14:30, Tu-Sa 18:00-21:30, Sa 11:00-15:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 13.00
+|		| Type of food served : Hawaïenne, Saine, Bol Poke
+|	Restaurant : Basilic-&-Co
+|		| Opening hours : Mo-Sa 11:30-14:00, Tu-Sa 18:00-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Pizza
+|	Restaurant : GreenBae
+|		| Opening hours : Mo-Sa 11:30-14:30, Tu-Sa 18:45-21:20
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Saine, Méditerranéenne, Végétarienne
+|	Restaurant : GreenBae-Box
+|		| Opening hours : Mo-Sa 11:30-14:30, Tu-Sa 19:00-20:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Saine, Jus, Végétarienne
+|	Restaurant : La-Taverne-de-Maître-Kanter
+|		| Opening hours : Mo-Sa 11:45-14:00, Tu-Sa 18:30-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Française
+|	Restaurant : Le-Comptoir-Syrien
+|		| Opening hours : Mo-Th,Sa 11:45-14:00, Tu-Fr 19:00-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Grill, Halal, Fait maison, Méditerranéenne, Moyen-Orientale, Traditionelle, Végétarienne
+|	Restaurant : Restaurant-Anatolie
+|		| Opening hours : Mo-Fr 12:00-15:30, Tu-Fr 19:00-21:30, Sa 12:00-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Fait maison, Kebab, Turque
+###########################################################################################################################################################################################################################################################################
+Restaurants meeting both price and hours :
+|	Restaurant : La-pizza-de-don-cangrejo
+|		| Opening hours : Mo-Su 00:00-23:59
+|		| Delivery price : 0.00
+|		| Minimal cost for delivery : 0.00
+|		| Type of food served : Américaine
+|	Restaurant : Pizzas-on-Fire
+|		| Opening hours : Mo-Fr 00:00-23:59
+|		| Delivery price : 0.00
+|		| Minimal cost for delivery : 0.00
+|		| Type of food served : Italienne, Pizza
+|	Restaurant : Test-de-designer
+|		| Opening hours : Mo-Su 00:00-23:59
+|		| Delivery price : 0.00
+|		| Minimal cost for delivery : 0.00
+|	Restaurant : ABC-Terroirs
+|		| Opening hours : Mo-Sa 10:00-19:00
+|		| Delivery price : 6.00
+|		| Minimal cost for delivery : 1.00
+|	Restaurant : Barnabé-La-boulangerie
+|		| Opening hours : Mo-Sa 08:00-18:30
+|		| Delivery price : 6.00
+|		| Minimal cost for delivery : 1.00
+|	Restaurant : +39
+|		| Opening hours : Mo-Th,Su 19:30-21:45, Fr-Sa 19:30-22:00, Mo-Sa 12:00-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne, Pizza
+|	Restaurant : Adelaide--Cookies-🍪
+|		| Opening hours : Mo-Fr 11:00-14:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bagels, Boulangerie, Café, Smoothies
+|	Restaurant : Akady
+|		| Opening hours : Mo-Sa 12:00-13:45, Mo-Sa 18:15-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Africaine
+|	Restaurant : Antidote-Restaurant
+|		| Opening hours : Th-Fr 18:45-20:45, Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Africaine, Asiatique, Indienne, Vegan
+|	Restaurant : Aporpan
+|		| Opening hours : Mo 08:45-13:30, Tu-Fr 08:45-16:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Panadería, Cafetería, Fiambres
+|	Restaurant : Artepan
+|		| Opening hours : Mo-Fr 09:00-16:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Panadería, Cafetería, Pastelería
+|	Restaurant : Au-cochon-qui-fume
+|		| Opening hours : Mo-Su 09:30-17:15, Mo-Su 19:00-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française
+|	Restaurant : BAO-DAO-Taiwan-Food
+|		| Opening hours : Mo-Th 11:55-13:45, Mo-Su 18:30-21:45, Fr-Sa 11:55-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Taïwanaise, Vegan, Végétarienne
+|	Restaurant : Back-Bay
+|		| Opening hours : Mo-Sa 11:55-13:45, Mo,We-Th 18:55-21:45, Fr-Su 18:55-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Américaine, Burgers, Sandwiches
+|	Restaurant : Bangkok-Pad-Thaï-🥡
+|		| Opening hours : Mo-Sa 11:00-14:30, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Thaïlandaise
+|	Restaurant : Binôm-🍲
+|		| Opening hours : Mo-Fr 11:30-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Saine, Locale
+|	Restaurant : Bol'appétit
+|		| Opening hours : Mo-Fr 09:45-15:00, Fr 18:00-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 13.00
+|		| Type of food served : Asiatique, Vietnamienne
+|	Restaurant : Brasserie-Bendorf-🍺
+|		| Opening hours : Mo-Fr 10:01-22:00, Sa-Su 15:01-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Burgerseven-🍔
+|		| Opening hours : Mo-Th,Sa 11:30-14:30, Mo-Sa 18:45-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers
+|	Restaurant : By-Bo-Bun-🥢
+|		| Opening hours : Mo-Sa 11:45-13:50, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Fast food, Sans gluten, Halal, Saine, Fait maison, Thaïlandaise, Vegan, Végétarienne, Vietnamienne
+|	Restaurant : Bông
+|		| Opening hours : Mo-Th 11:45-13:45, We-Fr 18:30-21:00, Fr 11:45-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Fusion, Bol Poke
+|	Restaurant : C'MIDI-🥧
+|		| Opening hours : Mo-Th 11:00-13:45, Fr 11:00-13:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Saine, Fait maison, Traditionelle, Vegan, Végétarienne
+|	Restaurant : CAFÉ-FOCH-🌱
+|		| Opening hours : Mo-Fr 11:15-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bistrot, Burgers, Française, Fait maison
+|	Restaurant : Calma
+|		| Opening hours : Mo-Fr 12:00-13:45, Mo-Fr,Su 18:55-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Espagnole, Tapas
+|	Restaurant : Chawp-Shop-Big
+|		| Opening hours : Mo-Sa 11:55-13:55, Mo-Sa 19:00-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Panasiatique, Thaïlandaise, Vietnamienne
+|	Restaurant : Cheezy-pizza-🍕
+|		| Opening hours : Mo-Sa 18:45-21:40, Mo-Sa 12:00-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Pizza
+|	Restaurant : Chicken-Naan-🌯
+|		| Opening hours : Mo-Sa 19:00-21:50, Mo-Sa 12:00-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Fast food, Indienne, Végétarienne
+|	Restaurant : Comptoir-à-Poutine
+|		| Opening hours : Mo-Sa 11:40-13:45, Tu-Sa 18:25-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Crapaudine-🌱
+|		| Opening hours : Mo-Fr 12:00-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Saine, Fait maison, Traditionelle, Végétarienne
+|	Restaurant : DAKOO
+|		| Opening hours : Mo-Sa 11:55-13:45, Mo-Th 18:55-21:45, Fr-Sa 18:55-22:00, Su 18:55-21:15
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Corée
+|	Restaurant : Damasquino-🧆
+|		| Opening hours : Mo-Fr 11:30-14:00, Mo-Sa 18:45-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Halal, Saine, Libanaise, Vegan, Végétarienne
+|	Restaurant : Donatien-Maitre-Eclair-🍰
+|		| Opening hours : Mo-Fr 10:01-15:00, Sa-Su 17:01-20:00, Mo-Fr 17:01-20:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Dragonne-Pizza-🍕
+|		| Opening hours : Mo-Fr 11:30-13:40, Tu-Th 18:55-20:00, Fr 18:55-20:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne, Pizza, Vegan, Végétarienne
+|	Restaurant : Dubble-Food-🥗🏷️
+|		| Opening hours : Mo-Fr 10:01-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : EZOPE-FOCACCIA-(carte-midi)
+|		| Opening hours : Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fait maison, Italienne, Locale, Salades, Sandwiches
+|	Restaurant : Escale-Indienne-🛕
+|		| Opening hours : Mo-Sa 11:30-13:15, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Sans gluten, Saine, Indienne, Internationale, Vegan, Végétarienne
+|	Restaurant : FRAIS-&-DISPO
+|		| Opening hours : Mo-Sa 11:45-13:45, Mo-Sa 18:30-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Fit-&-Gourmande-🌱
+|		| Opening hours : Mo-Fr 11:30-14:20
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Sans gluten, Saine, Fait maison, Base végétale, Salades, Vegan, Végétarienne
+|	Restaurant : Fleck-&-Co-🍲
+|		| Opening hours : Mo-Tu,Th-Fr 11:30-14:45, We 11:30-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Fait maison, Locale, Végétarienne
+|	Restaurant : Gadjacks
+|		| Opening hours : Mo-Th 11:45-13:45, Fr 11:45-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Africaine, Vegan, Végétarienne
+|	Restaurant : GïDA
+|		| Opening hours : Mo-Fr 12:00-13:45, Th-Sa 18:30-22:00, We,Su 18:30-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Ichigo-Ichie-Ramen
+|		| Opening hours : Mo-Sa 11:45-13:45, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Japonaise, Soupes
+|	Restaurant : Ichizen
+|		| Opening hours : Mo-Fr 11:45-13:45, Tu-Th 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiarra, Japoniarra, Poke Bowl
+|	Restaurant : Istanbul-Grill
+|		| Opening hours : Mo-Th 18:30-21:45, Mo-Sa 11:45-13:45, Fr-Sa 18:30-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Sandwiches
+|	Restaurant : Jabiru-Café-🧆
+|		| Opening hours : Mo-Fr 11:45-14:00, Tu-Sa 18:45-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Africaine, Fusion, Vegan, Végétarienne
+|	Restaurant : Kansaï-Sushi-🍣
+|		| Opening hours : Mo-Fr 11:30-14:00, Mo-Sa 18:45-21:30, Su 18:00-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Japonaise, Sushi, Végétarienne
+|	Restaurant : Kei's-Atelier-🥡
+|		| Opening hours : Mo-Fr 11:00-15:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Saine, Corée, Végétarienne
+|	Restaurant : Koa-Thaï-🥢
+|		| Opening hours : Mo-Fr 12:00-15:00, Mo-Su 19:00-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Fait maison, Thaïlandaise, Végétarienne
+|	Restaurant : L'Aiguillage-🌱
+|		| Opening hours : Mo-Fr 12:00-13:40, Th-Fr 19:00-21:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Sans gluten, Saine, Fait maison, Locale, Vegan, Végétarienne
+|	Restaurant : L'Ambassade
+|		| Opening hours : Mo-Fr 12:00-13:45, Mo-Fr 19:00-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bistrot, Française, Traditionelle
+|	Restaurant : L'Atelier-CGB-🌱
+|		| Opening hours : Mo-Sa 11:00-14:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Café, Française, Saine, Fait maison, Bol Poke, Végétarienne
+|	Restaurant : L'INATTENDU-🏷️
+|		| Opening hours : Mo-Fr 11:30-13:30, Mo-Fr 18:45-20:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Traditionelle
+|	Restaurant : L'éthiquête
+|		| Opening hours : Mo-Th 11:50-13:45, Fr-Sa 11:50-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Saine, Bol Poke, Vegan, Végétarienne
+|	Restaurant : LE-GOURMET-🌱
+|		| Opening hours : Mo-Sa 11:00-14:45, Th-Sa 18:45-19:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bistrot, Française, Traditionelle, Végétarienne
+|	Restaurant : La-Bonne-Pâte-🍝
+|		| Opening hours : Mo-Fr 11:30-14:20, Mo-Fr 18:45-21:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Fait maison, Pâtes
+|	Restaurant : La-Casa-de-Pitou-🥗
+|		| Opening hours : Mo-Fr 11:00-14:15
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Saine, Hot Dogs, Salades, Sandwiches, Traditionelle
+|	Restaurant : La-Fabrique-à-Miam-🍕
+|		| Opening hours : Su 19:00-21:45, Mo-Th 19:00-21:30, Mo-Th 12:00-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Casher, Pizza, Végétarienne
+|	Restaurant : La-Machine-à-Crêpes
+|		| Opening hours : Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : La-Mangouste
+|		| Opening hours : Fr 12:00-13:55, Mo-Th 19:00-21:45, Fr-Su 19:00-22:00, Mo-Th 12:00-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Pizza
+|	Restaurant : La-Piste-à-manger
+|		| Opening hours : Mo-Su 11:45-13:45, Mo-Su 18:30-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Bistrot, Tapas
+|	Restaurant : La-Salsita-🌮
+|		| Opening hours : Mo-Sa 11:45-14:45, Mo-Sa 18:45-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Internationale, Latino-Américaine, Mexicaine, Vegan, Végétarienne
+|	Restaurant : La-Table-Verte-🍃-🏷️
+|		| Opening hours : Mo-Fr 11:15-12:15, Mo-Fr 12:15-13:15
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : La-cuillère-qui-chante
+|		| Opening hours : Mo-Su 01:45-16:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Africaine
+|	Restaurant : La-patate-rouge-maline
+|		| Opening hours : Mo-Fr 10:00-13:15, Mo-Fr 19:45-22:45, Sa-Su 09:15-14:30, Sa-Su 19:15-00:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Le-Coq-Hardi-​🐓
+|		| Opening hours : Mo-Sa 11:30-14:45, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bistrot, Burgers, Française, Traditionelle
+|	Restaurant : Le-Coucou-Rennais
+|		| Opening hours : Mo-Sa 12:00-13:45, Mo-Th 19:00-21:40, Fr-Sa 19:00-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Française, Vegan, Végétarienne
+|	Restaurant : Le-Petit-Faubourg-🍔
+|		| Opening hours : Mo-Fr 11:30-14:00, Tu-Sa 18:45-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bistrot, Burgers, Française, Fait maison, Végétarienne
+|	Restaurant : -Cuisine-Indienne-et-Mauricienne-🍲
+|		| Opening hours : Mo-Sa 11:45-13:40, Mo-Su 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Indienne, Traditionelle
+|	Restaurant : Le-Zed
+|		| Opening hours : Mo-Th 11:55-13:45, Mo-We 19:00-21:30, Fr-Sa 11:55-14:00, Fr-Su 19:00-22:00, Th 19:00-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers
+|	Restaurant : Le-bon-sens-🥗
+|		| Opening hours : Mo-Fr 11:30-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Saine, Locale
+|	Restaurant : Les-demoiselles-de-Montpellier
+|		| Opening hours : Mo-Sa 12:00-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Sans gluten, Saine, Locale, Vegan
+|	Restaurant : Livres-BS
+|		| Opening hours : Mo-We,Fr-Sa 11:00-14:00, Mo-We,Fr-Sa 17:30-23:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Albanaise
+|	Restaurant : Maison-des-saveurs-🥢
+|		| Opening hours : Mo-Fr 11:45-14:00, Tu-Fr 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Fait maison, Bar à nouilles
+|	Restaurant : Mayo🟡-Ketchup🔴
+|		| Opening hours : Mo-Fr 11:30-14:45, Sa 12:00-14:45, Mo-Sa 18:50-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Sandwiches, Tex Mex, Vegan, Végétarienne
+|	Restaurant : Meat-people
+|		| Opening hours : Mo-Fr 10:30-14:15, Mo-Fr 20:15-22:45, Sa-Su 09:15-15:15, Sa-Su 19:00-00:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Mon-shop-a-cookies-[commerçant]-🍪😋
+|		| Opening hours : Mo-Sa 10:00-12:00, Mo-Sa 12:00-14:00, Mo-Sa 14:00-16:00, Mo-Sa 16:00-18:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Mon-shop-à-cookies-[restaurant]-🍪😋
+|		| Opening hours : Mo-Sa 11:30-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Montebello-🍝
+|		| Opening hours : Mo-Sa 12:00-13:30, Th-Fr 19:00-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne
+|	Restaurant : My-Gyoza
+|		| Opening hours : Mo,We-Sa 11:45-13:45, Mo,We-Sa 19:00-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : My-Pizza-🍕
+|		| Opening hours : Mo-Tu,Th 11:30-14:00, Tu-Su 18:45-21:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Pizza, Végétarienne, Ailes de poulet (Wings)
+|	Restaurant : NOUVEAU-🔥-BAGEL-CORNER-🥯
+|		| Opening hours : Mo-Sa 11:10-14:50, Mo-Sa 18:50-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Bagels, Végétarienne
+|	Restaurant : Namsan-Maru-🥢
+|		| Opening hours : Mo-Fr 11:45-14:00, Mo-Sa 18:45-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Fait maison, Corée
+|	Restaurant : Nouveau-🔥-Poutine-QUEBEC---(crispy)
+|		| Opening hours : Mo-Sa 11:00-14:45, Mo-Sa 18:45-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Canadienne, Fast food, Halal, Végétarienne
+|	Restaurant : Nouveauté-(menu)-!-ANKKA-🥗
+|		| Opening hours : Mo-Sa 11:00-14:40, Mo-Sa 18:45-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Pâtes, Salades, Smoothies, Wraps
+|	Restaurant : Oh-my-bowl-🥑-🐟🍚-🍍
+|		| Opening hours : Mo-Sa 11:30-13:40, Mo-Sa 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Ohmyfish
+|		| Opening hours : Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Osasungarria, Poke Bowl, Sandwichak
+|	Restaurant : Osteria-da-Carmela
+|		| Opening hours : Mo-Su 12:00-23:59
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne
+|	Restaurant : POKAWA-🌈
+|		| Opening hours : Mo-Sa 11:15-14:40, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Hawaïenne, Bol Poke, Végétarienne
+|	Restaurant : Papà-Pasta
+|		| Opening hours : Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Pâtes
+|	Restaurant : Pasta-Gusto-🍝
+|		| Opening hours : Mo-Fr 11:30-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Pâtes
+|	Restaurant : Pasta-Gusto-🍝🏷️
+|		| Opening hours : Mo-Fr 10:01-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Pazzi
+|		| Opening hours : Mo-Th 18:50-21:45, Fr-Sa 18:50-22:00, Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne, Pizza
+|	Restaurant : Pizza-Sicilia-🍕🍝
+|		| Opening hours : Mo-Sa 11:30-13:40, Mo-Su 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne, Pâtes, Pizza, Traditionelle
+|	Restaurant : Pizzeria-da-Cristianotto
+|		| Opening hours : Mo-Fr 09:00-23:59, Sa-Su 00:00-23:59
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Promo-!-🔥-Tacos-LeBrizFaim-🌯
+|		| Opening hours : Mo-Sa 11:00-14:30, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Sandwiches
+|	Restaurant : Pulled-Me-🥪
+|		| Opening hours : Mo-Fr 11:30-14:20, Th-Fr 18:45-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fast food, Française, Sandwiches
+|	Restaurant : Pépites-!
+|		| Opening hours : Mo-Fr 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fait maison
+|	Restaurant : Restaurant-DAU-🥢
+|		| Opening hours : Mo-Sa 11:45-14:30, Tu-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Internationale, Végétarienne, Vietnamienne
+|	Restaurant : Restaurant-les-vignes-🍽️🇨🇵
+|		| Opening hours : Mo-Sa 11:30-13:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Locale
+|	Restaurant : Rock'n'Rolls-MTP
+|		| Opening hours : Mo-Fr 11:45-13:40, Mo-Sa 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Japonaise, Bol Poke, Sushi, Tex Mex, Vegan, Végétarienne
+|	Restaurant : SHAM-BOURAK-🇸🇾🌯
+|		| Opening hours : Mo-Sa 11:30-13:40, Mo-Tu,Th-Su 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : SMASH-Falafel-by-Yafel
+|		| Opening hours : Mo-Th 11:45-13:45, Mo-Th 18:30-21:45, Fr-Su 18:30-22:00, Fr-Sa 11:45-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers
+|	Restaurant : Satiō
+|		| Opening hours : Mo-Su 12:00-13:45, Mo-Th,Su 18:45-21:15, Fr-Sa 18:45-21:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Française, Fait maison
+|	Restaurant : Smash-Burger-🍔
+|		| Opening hours : Mo-Th 11:30-14:00, Mo-Sa 18:45-21:45, Sa 12:00-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Américaine, Burgers, Fast food
+|	Restaurant : Suppli-Factory
+|		| Opening hours : Mo-Su 18:30-21:45, Mo-Sa 11:45-13:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne
+|	Restaurant : Séoul-to-go
+|		| Opening hours : Mo-Sa 11:45-13:45, Fr 18:15-20:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Corée, Barbecue Coréen
+|	Restaurant : TIKTAK
+|		| Opening hours : Mo,We-Th 12:00-13:45, Fr-Sa 12:00-14:00, Mo,We-Th,Su 18:30-21:45, Fr-Sa 18:30-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Thé, Vietnamienne
+|	Restaurant : Taverna-Greca
+|		| Opening hours : Mo-Su 08:00-23:59
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Thaï-Square-🍛
+|		| Opening hours : Mo-Fr 11:45-14:00, Th-Sa 18:50-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Thaïlandaise, Végétarienne
+|	Restaurant : The-Roster-🍔
+|		| Opening hours : Mo-Sa 11:45-14:00, Mo-Sa 18:45-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Fast Food
+|	Restaurant : Txakurzain
+|		| Opening hours : Mo-Fr 10:15-14:00, Mo-Th 16:45-19:30, Fr 17:00-19:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Ty-Chaud-🥢
+|		| Opening hours : Mo-Fr 11:30-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Française, Fait maison, Japonaise, Bol Poke, Salades, Végétarienne
+|	Restaurant : Verrine-&-Vapeur-🍲🏷️
+|		| Opening hours : Mo-Fr 10:01-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Vivant-🌱
+|		| Opening hours : Mo-Fr 12:00-14:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asian, Burgers, Vegan, Vegetarian
+|	Restaurant : Yafel
+|		| Opening hours : Mo-Sa 11:45-13:45, Mo-Th,Su 18:30-21:45, Fr-Sa 18:30-22:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Burgers, Halal, Saine, Méditerranéenne, Bol Poke, Vegan, Végétarienne
+|	Restaurant : Yam-Yam-얌얌
+|		| Opening hours : Mo-Fr 11:45-13:45, Mo,Th 18:15-20:20, Fr 18:15-20:50
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Saine, Corée
+|	Restaurant : Yamyam-Bistro-Coréen
+|		| Opening hours : Mo-Sa 11:45-13:45, Mo-Th 18:15-20:15, Fr-Sa 18:15-21:15
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Asiatique, Poulet, Corée
+|	Restaurant : Yolo-Smash-Burger-🍔
+|		| Opening hours : Mo-Fr 11:30-14:00, Mo-Sa 18:45-21:30, Su 18:00-21:45
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Américaine, Burgers, Poulet, Végétarienne
+|	Restaurant : Yume-Sushi-🍣
+|		| Opening hours : Mo-Fr 11:30-14:15, Mo-Su 18:30-21:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Japonaise, Bol Poke, Sushi, Végétarienne
+|	Restaurant : Yume-Sushi-🍣🏷️
+|		| Opening hours : Mo-Fr 10:01-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : ZAPIE-Street-Food-Polonais-🥟
+|		| Opening hours : Mo-Sa 11:30-13:40, Mo-Tu,Th-Sa 19:00-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Zurigo-🍕
+|		| Opening hours : Mo-Fr 11:30-14:00, Mo-Sa 18:45-21:30, Su 18:30-21:00
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Fait maison, Italienne, Pâtes, Pizza, Végétarienne
+|	Restaurant : pizzaZZZZ
+|		| Opening hours : Mo-Su 00:00-23:59
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Italienne
+|	Restaurant : À-la-braise🥩Grillades-au-feu-de-bois🍖
+|		| Opening hours : Mo-Sa 12:00-13:40, Mo-Su 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|	Restaurant : Ô-Délices-du-Liban-🧆
+|		| Opening hours : Mo-Sa 11:30-14:30
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Internationale, Libanaise, Vegan, Végétarienne
+|	Restaurant : 🌲Le-Karawane🌲
+|		| Opening hours : Mo-Sa 12:00-13:40, Mo-Sa 18:45-21:40
+|		| Delivery price : 3.5
+|		| Minimal cost for delivery : 13.0
+|		| Type of food served : Poulet, Libanaise, Traditionelle, Vegan, Végétarienne
+|	Restaurant : Restaurant-Le-Régency
+|		| Opening hours : Mo-Fr 11:30-14:00, Tu-Fr 19:30-21:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 14.00
+|		| Type of food served : Française, Fait maison, Locale
+|	Restaurant : L'assiette-du-sud
+|		| Opening hours : Mo-Fr 10:45-13:15, Mo-Fr 20:45-22:15, Sa-Su 09:45-15:00, Sa-Su 19:30-01:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : L'assiette-qui-chante
+|		| Opening hours : Mo-Fr 10:45-14:30, Mo-Fr 19:45-22:15, Sa-Su 09:30-15:30, Sa-Su 20:15-00:30
+|		| Delivery price : 5.00
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : L'assiette-qui-rit
+|		| Opening hours : Mo-Fr 10:45-13:30, Mo-Fr 20:45-23:00, Sa-Su 08:30-15:30, Sa-Su 20:00-00:15
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : L'auberge-bretonne
+|		| Opening hours : Mo-Fr 09:30-14:00, Mo-Fr 20:45-23:15, Sa-Su 09:15-14:45, Sa-Su 19:30-00:15
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : L'aubergine-joyeuse
+|		| Opening hours : Mo-Fr 09:45-14:30, Mo-Fr 20:30-22:30, Sa-Su 09:15-15:00, Sa-Su 20:15-01:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Bar à nouilles
+|	Restaurant : L'aubergine-rouge-espagnole
+|		| Opening hours : Mo-Fr 09:30-14:00, Mo-Fr 20:30-22:15, Sa-Su 08:45-14:45, Sa-Su 20:15-00:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : L'île-rouge-qui-danse
+|		| Opening hours : Mo-Fr 10:00-14:15, Mo-Fr 19:30-23:15, Sa-Su 09:45-14:15, Sa-Su 19:45-00:15
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-boule-rebelle
+|		| Opening hours : Mo-Fr 10:45-13:45, Mo-Fr 20:30-23:00, Sa-Su 08:45-15:15, Sa-Su 20:00-00:15
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-boîte-gourmande
+|		| Opening hours : Mo-Fr 10:15-13:30, Mo-Fr 20:30-23:30, Sa-Su 09:00-15:00, Sa-Su 20:15-00:45
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-cabane-du-sud
+|		| Opening hours : Mo-Sa 11:00-14:30, Mo-Sa 19:00-21:50
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|		| Type of food served : Burgers, Poulet, Chinoise, Soupe de poisson, Européenne
+|	Restaurant : La-cabane-noire-qui-danse
+|		| Opening hours : Mo-Fr 10:45-13:45, Mo-Fr 20:00-22:15, Sa-Su 09:30-15:30, Sa-Su 19:45-01:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-casserole-qui-fume
+|		| Opening hours : Mo-Fr 09:30-13:30, Mo-Fr 20:15-23:15, Sa-Su 08:30-14:30, Sa-Su 19:00-00:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-chaise-à-pois-bretonne
+|		| Opening hours : Mo-Fr 10:45-14:00, Mo-Fr 20:15-22:30, Sa-Su 09:45-15:00, Sa-Su 19:45-01:15
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-patate-rouge-qui-danse
+|		| Opening hours : Mo-Fr 10:00-13:45, Mo-Fr 20:45-22:45, Sa-Su 09:45-15:30, Sa-Su 20:00-01:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : La-table-à-pois-qui-fume
+|		| Opening hours : Mo-Fr 10:45-14:30, Mo-Fr 20:15-22:30, Sa-Su 08:30-14:45, Sa-Su 20:15-00:45
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : Nous-le-Savons-boutique
+|		| Opening hours : Mo-Fr 11:00-22:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+|	Restaurant : kombuch'alpes-boutique
+|		| Opening hours : Mo-Fr 11:00-18:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 15.00
+###########################################################################################################################################################################################################################################################################
+Restaurant meeting both distance and hours :
+|	Restaurant : Jean-Les-Crocs
+|		| Opening hours : Mo-Fr 11:30-14:00
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 20.00
+|		| Type of food served : Fait maison, Locale, Salades, Sandwiches, Végétarienne
+|	Restaurant : Tsing-Tao
+|		| Opening hours : Mo-Sa 11:00-14:00, Tu-Sa 18:00-21:30
+|		| Delivery price : 3.50
+|		| Minimal cost for delivery : 20.00
+|		| Type of food served : Japonaise, Sushi
