@@ -11,7 +11,6 @@ from bs4 import BeautifulSoup
 def parseRestaurantData(d, g):
 
     
-
     added = 0
     g_to_be_checked = Graph()
     sh = "https://schema.org/"
@@ -32,7 +31,7 @@ def parseRestaurantData(d, g):
         if 'description' in d:
             g_to_be_checked.add((URIRef(ex+d['name']), RDFS.label, Literal(d['description'])))
         if 'nextOpeningDate' in d:
-            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"nextOpeningDate"), Literal(d['nextOpeningDate'])))
+            g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"nextOpeningDate"), Literal(str(d['nextOpeningDate']), datatype=XSD.dateTime)))
         # Process the address
         address_node = BNode()
         g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"address"), address_node))
@@ -83,7 +82,7 @@ def parseRestaurantData(d, g):
                     
 
         list_site = check_through_restaurants(d)
-
+        
         for site in list_site:
             pc, p , etvpc , etvp = scrap(site)
             if pc and p and etvpc and etvp:
@@ -91,37 +90,37 @@ def parseRestaurantData(d, g):
                 priceSpec = BNode()
                 price_node = BNode()
                 g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"potentialAction"), potentAct))
-                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"priceSpecification")))
-                g_to_be_checked.add((potentAct, URIRef(sh+"priceSpecification"), priceSpec))
-                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"Action")))
+                g_to_be_checked.add((potentAct, URIRef(sh+"PriceSpecification"), priceSpec))
+                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"PriceSpecification")))
                 g_to_be_checked.add((priceSpec, URIRef(sh+"priceCurrency"), Literal(pc)))
-                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(p)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(str(p), datatype=XSD.decimal)))
                 g_to_be_checked.add((priceSpec, URIRef(sh+"eligibleTransactionVolume"), price_node))
-                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"eligibleTransactionVolume")))
+                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"PriceSpecification")))
                 g_to_be_checked.add((price_node, URIRef(sh+"priceCurrency"), Literal(etvpc)))
-                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(etvp, datatype=XSD.decimal)))
+                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(str(etvp), datatype=XSD.decimal)))
             else:
                 if pc is None:
                     pc = "EUR"
                 if p is None:
-                    p = 13
+                    p = 3.50
                 if etvpc is None:
                     etvpc = "EUR"
                 if etvp is None:
-                    etvp = 3.50
+                    etvp = 13
                 potentAct = BNode()
                 priceSpec = BNode()
                 price_node = BNode()
                 g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"potentialAction"), potentAct))
-                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"priceSpecification")))
-                g_to_be_checked.add((potentAct, URIRef(sh+"priceSpecification"), priceSpec))
-                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"Action")))
+                g_to_be_checked.add((potentAct, URIRef(sh+"PriceSpecification"), priceSpec))
+                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"PriceSpecification")))
                 g_to_be_checked.add((priceSpec, URIRef(sh+"priceCurrency"), Literal(pc)))
-                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(p)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(str(p), datatype=XSD.decimal)))
                 g_to_be_checked.add((priceSpec, URIRef(sh+"eligibleTransactionVolume"), price_node))
-                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"eligibleTransactionVolume")))
+                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"PriceSpecification")))
                 g_to_be_checked.add((price_node, URIRef(sh+"priceCurrency"), Literal(etvpc)))
-                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(etvp, datatype=XSD.decimal)))
+                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(str(etvp), datatype=XSD.decimal)))
     else:
         print("Data already existing")
         
@@ -142,7 +141,6 @@ def parseRestaurantData(d, g):
 
 
     #if  (subject_uri, None, None) not in g:
-
     return added
 
 
@@ -224,8 +222,8 @@ def scrap(html_content):
             price_currency = data.get("potentialAction", {}).get("priceSpecification", {}).get("priceCurrency")
             price = data.get("potentialAction", {}).get("priceSpecification", {}).get("price")
             if price != 0 and price is not None:
-                if "," in price:
-                    price = price.replace(',', "")
+                if "," in str(price):
+                    price = float(str(price).replace(',', ""))
             eligible_transaction_volume = data.get("potentialAction", {}).get("priceSpecification", {}).get("eligibleTransactionVolume", {})
 
 

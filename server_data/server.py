@@ -1,7 +1,7 @@
 from rdflib_endpoint import SparqlEndpoint
-
-
-
+import os
+from rdflib import Graph
+import uvicorn
 
 def init_serv(app, g):
 
@@ -30,4 +30,25 @@ def init_serv(app, g):
 
 # On a lancé le tripleStore manuellement
 if __name__ == "__main__":
-    print("prout")
+    
+    app = None
+    g = Graph()
+
+    if os.path.exists("server_data/data_semweb.db"):
+        try:
+            g.parse("server_data/data_semweb.db", format='turtle')
+        except Exception as e:
+            pass
+        print("Existing data loaded : \n")
+        exist = True
+        #print(g.serialize())
+    else:
+        print("No existing data found\n")
+        exist = False
+
+    if exist:
+        app = init_serv(app, g=g)
+        uvicorn.run(app, host="localhost", port=8000)
+
+    else:
+        print("No data found, exiting program...")

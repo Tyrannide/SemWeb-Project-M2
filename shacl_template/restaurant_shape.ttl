@@ -4,7 +4,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
-
 schema:RestaurantShape
   a sh:NodeShape ;
   sh:targetClass schema:Restaurant ;
@@ -17,7 +16,7 @@ schema:RestaurantShape
     sh:node schema:MenuShape ;
   ] ;
   sh:property [
-    sh:path schema:nschematOpeningDate ;
+    sh:path schema:nextOpeningDate ;
     sh:datatype xsd:dateTime ;
   ] ;
   sh:property [
@@ -27,11 +26,15 @@ schema:RestaurantShape
   sh:property [
     sh:path schema:servesCuisine ;
     sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path schema:potentialAction ;
+    sh:node schema:pAShape ;
   ] .
 
 schema:AddressShape
   a sh:NodeShape ;
-  sh:targetClass schema:Address ;
+  sh:targetClass schema:Place ;
   sh:property [
     sh:path schema:address ;
     sh:datatype xsd:string ;
@@ -78,10 +81,49 @@ schema:MenuItemShape
 
 schema:OfferShape
   a sh:NodeShape ;
-  sh:targetClass schema:offers ;
+  sh:targetClass schema:Offer ;
   sh:property [
     sh:path schema:price ;
     sh:datatype xsd:decimal ;
     sh:minCount 1 ;
   ] .
 
+schema:pAShape
+  a sh:NodeShape ;
+  sh:targetClass schema:Action ;
+  sh:property [
+    sh:path schema:priceSpecification ;
+    sh:node schema:pSShape ;
+  ] .
+
+schema:pSShape
+  a sh:NodeShape ;
+  sh:targetClass schema:PriceSpecification ;
+  sh:property [
+    sh:path schema:eligibleTransactionVolume ;
+    sh:node schema:eTVShape ;
+  ] ;
+  sh:property [
+    sh:path schema:price ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:priceCurrency ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] .
+
+schema:eTVShape
+  a sh:NodeShape ;
+  sh:targetClass schema:PriceSpecification ;
+  sh:property [
+    sh:path schema:price ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:priceCurrency ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] .

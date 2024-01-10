@@ -43,47 +43,70 @@ if __name__ == "__main__":
     sparq = spq.SPARQLWrapper("http://localhost:8000") 
 
 
-    # classique
     sparq.setQuery(f"""
         PREFIX schema: <https://schema.org/>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-        SELECT DISTINCT ?restaurant ?latitude ?longitude
+        SELECT DISTINCT ?restaurant ?longitude ?latitude ?address ?accessPrice
         WHERE {{
                 ?restaurant a schema:Restaurant ;
-                schema:address ?ad ;
-                schema:potentialAction ?p ;
-                schema:openingHours ?open .
-
-                ?p a schema:priceSpecification ;
-                schema:eligibleTransactionVolume ?p2 .
-
-                ?p2 schema:price ?price .
+                schema:address ?add;
+                schema:potentialAction ?pa.
                 
-                BIND(STRBEFORE(?open, " ") AS ?days)
-                BIND(MAP({
-                    "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
-                })[STRBEFORE(?days, "-")] AS ?dayStart)
-                BIND(MAP({
-                    "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
-                })[STRAFTER(?days, "-")] AS ?dayEnd)  
+                ?add a schema:Place ;
+                schema:address ?address ;
+                schema:latitude ?latitude ;
+                schema:longitude ?longitude .  
+
+                ?pa a schema:PriceSpecification .     
                 
-                BIND(STRAFTER(?open, " ") AS ?hours)
-                BIND(CONCAT(STRBEFORE(?hours, "-"),":00") AS ?hStart)
-                BIND(CONCAT(STRAFTER(?hours, "-"),":00") AS ?hEnd)
+        }}
+        LIMIT 1000
+        OFFSET 0        
+        """)
+
+    # classique
+    # sparq.setQuery(f"""
+    #     PREFIX schema: <https://schema.org/>
+
+    #     SELECT DISTINCT ?restaurant ?latitude ?longitude
+    #     WHERE {{
+    #             ?restaurant a schema:Restaurant ;
+    #             schema:address ?ad ;
+    #             schema:potentialAction ?p ;
+    #             schema:openingHours ?open .
+
+    #             ?p a schema:priceSpecification ;
+    #             schema:eligibleTransactionVolume ?p2 .
+
+    #             ?p2 schema:price ?price .
+                
+    #             BIND(STRBEFORE(?open, " ") AS ?days).
+    #             BIND(MAP({
+    #                 "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
+    #             })[STRBEFORE(?days, "-")] AS ?dayStart).
+    #             BIND(MAP({
+    #                 "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
+    #             })[STRAFTER(?days, "-")] AS ?dayEnd) .
+                
+    #             BIND(STRAFTER(?open, " ") AS ?hours).
+    #             BIND(CONCAT(STRBEFORE(?hours, "-"),":00") AS ?hStart).
+    #             BIND(CONCAT(STRAFTER(?hours, "-"),":00") AS ?hEnd).
                                 
-                ?ad a schema:Place ;
-                schema:latitude ?latitude;
-                schema:longitude ?longitude .
+    #             ?ad a schema:Place ;
+    #             schema:latitude ?latitude;
+    #             schema:longitude ?longitude .
                 
-                FILTER (
-                    ?price < {max_price} &&
-                    ?dayStart <= {day_index[date]} &&
-                    ?dayEnd >= {day_index[date]} &&
-                    xsd:time(?hStart) <= xsd:time({hours}) &&
-                    xsd:time(?hEnd) >= xsd:time({hours})
-                )
-        }} 
-    """)
+    #             FILTER (
+    #                 ?price < {max_price} &&
+    #                 ?dayStart <= {day_index[date]} &&
+    #                 ?dayEnd >= {day_index[date]} &&
+    #                 xsd:time(?hStart) <= xsd:time({hours}) &&
+    #                 xsd:time(?hEnd) >= xsd:time({hours})
+    #             )
+    #     }} 
+    # """)
 
     sparq.setReturnFormat(spq.JSON)
     res = sparq.query().convert()
