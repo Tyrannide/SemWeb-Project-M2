@@ -3,6 +3,8 @@ from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import RDF, XSD
 import random
 import string
+import requests
+import os
 
 
 def generate_random_string(length):
@@ -81,6 +83,29 @@ if __name__ == "__main__":
                 g.add((seek_node, URIRef(sh+'itemOfferred') , Literal(items)))
 
                 g.serialize(destination="schema_pref/pref-"+ name.split(' ')[1] +".ttl", format="turtle")
+
+                if input("Do you want tu push the data on the linked data plateform ? (y/n)") in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+                    url = "http://193.49.165.77:3000/semweb/"
+                    response = requests.get(url)
+                    if response.ok:
+                        print("Linked data platform available, pushing the data")
+                        # Set headers
+                        headers = {
+                            "Content-Type": "text/turtle",
+                            "Slug": "BONNEFOY-MARINE-data"
+                        }
+
+                        try:
+                            response = requests.post(url, headers=headers, data=g)
+                            # Check the response
+                            if response.status_code == 200:
+                                print("Request successful.")
+                            else:
+                                print(f"Request failed with status code: {response.status_code}")
+                                print(response.text)
+
+                        except requests.RequestException as e:
+                            print(f"Request failed: {e}")
 
     else:
         exit()

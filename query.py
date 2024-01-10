@@ -310,7 +310,7 @@ if __name__ == "__main__":
                         if r['food']['value'] != "":
                            f.write("|\t\t| Type of food served : " + r['food']['value'] + "\n")
             print("Export done!")
-
+        
     else:
         exit(-1)
 
