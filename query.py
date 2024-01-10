@@ -1,6 +1,7 @@
 # pip install sparqlwrapper
 # pip install geopy
 import SPARQLWrapper as spq
+from datetime import datetime
 from geopy import Nominatim
 from geopy.distance import geodesic
 import sys
@@ -21,22 +22,22 @@ if __name__ == "__main__":
     print(len(sys.argv))
     print('Argument List:', str(sys.argv))
 
+    day_index = {"Mo" : 1,"Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7}
 
-    max_range = int(input("Please enter a max range in Km (default 5) : "))
-
-    if max_range <= 0 :
-        max_range = 5
-
-    adress = None
-    while not adress :
-        # test : "50 rue Conte Grandchamp, 42000 Saint-Étienne"
-        adress = convert_co(input("Please enter your adresse : "))
+    max_range = 5
     
-    food = input("Please enter what type of food you want : ")
-    max_price = float(input("Please enter your max price : "))
-    # format à voir
-    date = input("Please enter the date on the delivery (dd/mm/yyyy) : ")
-    time = input("Please enter a time (hh:mm) : ")
+    # test : "50 rue Conte Grandchamp, 42000 Saint-Étienne"
+    adress = convert_co("50 rue Conte Grandchamp, 42000 Saint-Étienne")
+    
+    # food = input("Please enter what type of food you want : ")
+    max_price = 18
+    
+    date = "10-01-2024"
+    date = datetime.strptime(date, "%d-%m-%Y")
+    date = str(date.strftime("%A"))[:2]
+
+
+    hours = "11:45:00"
 
     # doc : https://sparqlwrapper.readthedocs.io/en/latest/main.html#command-line-script
     sparq = spq.SPARQLWrapper("http://localhost:8000") 
@@ -50,18 +51,37 @@ if __name__ == "__main__":
         WHERE {{
                 ?restaurant a schema:Restaurant ;
                 schema:address ?ad ;
-                schema:potentialAction ?p .
+                schema:potentialAction ?p ;
+                schema:openingHours ?open .
 
                 ?p a schema:priceSpecification ;
                 schema:eligibleTransactionVolume ?p2 .
 
                 ?p2 schema:price ?price .
-                  
+                
+                BIND(STRBEFORE(?open, " ") AS ?days)
+                BIND(MAP({
+                    "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
+                })[STRBEFORE(?days, "-")] AS ?dayStart)
+                BIND(MAP({
+                    "Mo": 1, "Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7
+                })[STRAFTER(?days, "-")] AS ?dayEnd)  
+                
+                BIND(STRAFTER(?open, " ") AS ?hours)
+                BIND(CONCAT(STRBEFORE(?hours, "-"),":00") AS ?hStart)
+                BIND(CONCAT(STRAFTER(?hours, "-"),":00") AS ?hEnd)
+                                
                 ?ad a schema:Place ;
                 schema:latitude ?latitude;
                 schema:longitude ?longitude .
                 
-                FILTER (?price < {max_price})
+                FILTER (
+                    ?price < {max_price} &&
+                    ?dayStart <= {day_index[date]} &&
+                    ?dayEnd >= {day_index[date]} &&
+                    xsd:time(?hStart) <= xsd:time({hours}) &&
+                    xsd:time(?hEnd) >= xsd:time({hours})
+                )
         }} 
     """)
 
