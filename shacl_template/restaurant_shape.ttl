@@ -1,52 +1,87 @@
-@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
 
 schema:RestaurantShape
-    a sh:NodeShape ;
-    sh:targetClass schema:Restaurant ;
-    sh:property [
-        sh:path schema:address ;
-        sh:node [
-            sh:property [
-                sh:path schema:address ;
-                sh:node [
-                    sh:property [
-                        sh:path schema:address ;
-                        sh:node [
-                            sh:property [
-                                sh:path schema:latitude ;
-                                sh:datatype xsd:decimal ;
-                            ] ;
-                            sh:property [
-                                sh:path schema:longitude ;
-                                sh:datatype xsd:decimal ;
-                            ] ;
-                        ] ;
-                    ] ;
-                ] ;
-            ] ;
-        ] ;
-    ] ;
-    sh:property [
-        sh:path schema:hasMenu ;
-        sh:node [
-            sh:property [
-                sh:path schema:hasMenuItem ;
-                sh:node [
-                    sh:property [
-                        sh:path schema:price ;
-                        sh:datatype xsd:decimal ;
-                    ] ;
-                ] ;
-            ] ;
-        ] ;
-    ] ;
-    sh:property [
-        sh:path schema:openingHours ;
-        sh:datatype xsd:string ;
-    ] ;
-    sh:property [
-        sh:path schema:servesCuisine ;
-        sh:datatype xsd:string ;
-    ] .
+  a sh:NodeShape ;
+  sh:targetClass schema:Restaurant ;
+  sh:property [
+    sh:path schema:address ;
+    sh:node schema:AddressShape ;
+  ] ;
+  sh:property [
+    sh:path schema:hasMenu ;
+    sh:node schema:MenuShape ;
+  ] ;
+  sh:property [
+    sh:path schema:nschematOpeningDate ;
+    sh:datatype xsd:dateTime ;
+  ] ;
+  sh:property [
+    sh:path schema:openingHours ;
+    sh:datatype xsd:string ;
+  ] ;
+  sh:property [
+    sh:path schema:servesCuisine ;
+    sh:datatype xsd:string ;
+  ] .
+
+schema:AddressShape
+  a sh:NodeShape ;
+  sh:targetClass schema:Address ;
+  sh:property [
+    sh:path schema:address ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:latitude ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:longitude ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+  ] .
+
+schema:MenuShape
+  a sh:NodeShape ;
+  sh:targetClass schema:Menu ;
+  sh:property [
+    sh:path schema:hasMenuItem ;
+    sh:node schema:MenuItemShape ;
+    sh:minCount 1 ;
+  ] .
+
+schema:MenuItemShape
+  a sh:NodeShape ;
+  sh:targetClass schema:MenuItem ;
+  sh:property [
+    sh:path schema:description ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path schema:offers ;
+    sh:node schema:OfferShape ;
+    sh:minCount 1 ;
+  ] .
+
+schema:OfferShape
+  a sh:NodeShape ;
+  sh:targetClass schema:offers ;
+  sh:property [
+    sh:path schema:price ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+  ] .
+

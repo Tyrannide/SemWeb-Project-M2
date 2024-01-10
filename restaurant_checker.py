@@ -37,9 +37,9 @@ def parseRestaurantData(d, g):
         address_node = BNode()
         g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"address"), address_node))
         g_to_be_checked.add((address_node, RDF.type, URIRef(sh+"Place")))
-        g_to_be_checked.add((address_node, URIRef(sh+"latitude"), Literal(d['address']['geo']['latitude'], datatype=XSD.decimal)))
-        g_to_be_checked.add((address_node, URIRef(sh+"longitude"), Literal(d['address']['geo']['longitude'], datatype=XSD.decimal)))
-        g_to_be_checked.add((address_node, URIRef(sh+"address"), Literal(d['address']['streetAddress'])))
+        g_to_be_checked.add((address_node, URIRef(sh+"latitude"), Literal(str(d['address']['geo']['latitude']), datatype=XSD.decimal)))
+        g_to_be_checked.add((address_node, URIRef(sh+"longitude"), Literal(str(d['address']['geo']['longitude']), datatype=XSD.decimal)))
+        g_to_be_checked.add((address_node, URIRef(sh+"address"), Literal(str(d['address']['streetAddress']))))
         if 'tags' in d:     
             g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"servesCuisine"), Literal(', '.join(d['tags']))))
 
@@ -81,42 +81,63 @@ def parseRestaurantData(d, g):
                             g_to_be_checked.add((membership_node, URIRef(sh + "name"), Literal(str(list(g.triples((el[0], URIRef(sh+"legalName"), None)))[0][2]))))
                             g_to_be_checked.add((membership_node, URIRef(sh + "url"), Literal(str(e[2]), datatype=XSD.anyURI)))
                     
+
+        list_site = check_through_restaurants(d)
+
+        for site in list_site:
+            pc, p , etvpc , etvp = scrap(site)
+            if pc and p and etvpc and etvp:
+                potentAct = BNode()
+                priceSpec = BNode()
+                price_node = BNode()
+                g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"potentialAction"), potentAct))
+                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((potentAct, URIRef(sh+"priceSpecification"), priceSpec))
+                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"priceCurrency"), Literal(pc)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(p)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"eligibleTransactionVolume"), price_node))
+                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"eligibleTransactionVolume")))
+                g_to_be_checked.add((price_node, URIRef(sh+"priceCurrency"), Literal(etvpc)))
+                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(etvp, datatype=XSD.decimal)))
+            else:
+                if pc is None:
+                    pc = "EUR"
+                if p is None:
+                    p = 13
+                if etvpc is None:
+                    etvpc = "EUR"
+                if etvp is None:
+                    etvp = 3.50
+                potentAct = BNode()
+                priceSpec = BNode()
+                price_node = BNode()
+                g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"potentialAction"), potentAct))
+                g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((potentAct, URIRef(sh+"priceSpecification"), priceSpec))
+                g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"priceSpecification")))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"priceCurrency"), Literal(pc)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(p)))
+                g_to_be_checked.add((priceSpec, URIRef(sh+"eligibleTransactionVolume"), price_node))
+                g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"eligibleTransactionVolume")))
+                g_to_be_checked.add((price_node, URIRef(sh+"priceCurrency"), Literal(etvpc)))
+                g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(etvp, datatype=XSD.decimal)))
     else:
         print("Data already existing")
         
     if len(g_to_be_checked) != 0:
-            #print(g_to_be_checked.serialize())
-            shapes_graph = Graph()
-            shapes_graph.parse("shacl_template/restaurant_shape.ttl", format="turtle")
+        #print(g_to_be_checked.serialize())
+            
+        shapes_graph = Graph()
+        shapes_graph.parse("shacl_template/restaurant_shape.ttl", format="turtle")
 
-            conforms, _, _ = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="turtle")
-            if not conforms:
-                print(f"Data for {d['name']} does not conform to the SHACL model. Skipping...")
-
-            else:
-                added += 1
-                
-                list_site = check_through_restaurants(d)
-
-                for site in list_site:
-                    pc, p , etvpc , etvp = scrap(site)
-                    if pc and p and etvpc and etvp:
-                        potentAct = BNode()
-                        priceSpec = BNode()
-                        price_node = BNode()
-                        g_to_be_checked.add((URIRef(ex+d['name']), URIRef(sh+"potentialAction"), potentAct))
-                        g_to_be_checked.add((potentAct, RDF.type, URIRef(sh+"priceSpecification")))
-                        g_to_be_checked.add((potentAct, URIRef(sh+"priceSpecification"), priceSpec))
-                        g_to_be_checked.add((priceSpec, RDF.type, URIRef(sh+"priceSpecification")))
-                        g_to_be_checked.add((priceSpec, URIRef(sh+"priceCurrency"), Literal(pc)))
-                        g_to_be_checked.add((priceSpec, URIRef(sh+"price"), Literal(p)))
-                        g_to_be_checked.add((priceSpec, URIRef(sh+"eligibleTransactionVolume"), price_node))
-                        g_to_be_checked.add((price_node, RDF.type, URIRef(sh+"eligibleTransactionVolume")))
-                        g_to_be_checked.add((price_node, URIRef(sh+"priceCurrency"), Literal(etvpc)))
-                        g_to_be_checked.add((price_node, URIRef(sh+"price"), Literal(etvp)))
-
-
-                g += g_to_be_checked
+        conforms, _, result_log = pyshacl.validate(g_to_be_checked, shacl_graph=shapes_graph, inference="rdfs", serialize_report_graph="turtle")
+        if not conforms:
+            print(f"Data for {d['name']} does not conform to the SHACL model. Skipping...")
+            #print(result_log)
+        else:
+            added += 1
+            g += g_to_be_checked
                         
 
 
@@ -137,11 +158,16 @@ def parseMenu(d,g,n):
     g.add((n, URIRef(sh+'hasMenuItem'), item_node))
     g.add((item_node, RDF.type, URIRef(sh+'MenuItem')))
     g.add((item_node, URIRef(sh+'name'), Literal(d['name'])))
-    g.add((item_node, URIRef(sh+'description'), Literal(d['description'])))
+    description_value = d['description'] if d['description'] is not None else ""
+    g.add((item_node, URIRef(sh+'description'), Literal(description_value)))
     offer_node = BNode()
     g.add((item_node, URIRef(sh+'offers'), offer_node))
     g.add((offer_node, RDF.type, URIRef(sh+'offers')))
-    g.add((offer_node,URIRef(sh+'price'),Literal(float(d['offers']['price'])/100., datatype=XSD.decimal)))
+    if "," in str(d['offers']['price']):
+        offer_price = float(str(d['offers']['price']).replace(",", "")) / 100.
+    else:
+        offer_price = float(d['offers']['price']) / 100.
+    g.add((offer_node,URIRef(sh+'price'),Literal(str(offer_price), datatype=XSD.decimal)))
 
 
     return 1
@@ -153,8 +179,11 @@ def check_through_restaurants(d):
     valid = 0
     responses = []
 
+    #print(d)
+
     try:
         response = requests.get(d['potentialAction']['target']['urlTemplate'], timeout = 7)
+        #print(response)
         if response.ok:
             responses.append(response.text)
             valid +=1
@@ -179,19 +208,24 @@ def check_through_restaurants(d):
 def scrap(html_content):
 
     soup = BeautifulSoup(html_content, 'html.parser')
+    price_currency = ""
+    price = 0
+    eligible_transaction_volume = {}
 
     script_tag = soup.find('script', {'type': 'application/ld+json'})
 
-    price_specification = None
-
     if script_tag:
         json_ld_content = script_tag.string
+
         # Parse JSON-LD data
         try:
             data = json.loads(json_ld_content)
 
             price_currency = data.get("potentialAction", {}).get("priceSpecification", {}).get("priceCurrency")
             price = data.get("potentialAction", {}).get("priceSpecification", {}).get("price")
+            if price != 0 and price is not None:
+                if "," in price:
+                    price = price.replace(',', "")
             eligible_transaction_volume = data.get("potentialAction", {}).get("priceSpecification", {}).get("eligibleTransactionVolume", {})
 
 

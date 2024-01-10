@@ -9,12 +9,12 @@ schema:ProfessionalServiceShape
     sh:targetClass schema:ProfessionalService ;
     sh:property [
         sh:path schema:latitude ;
-        sh:datatype xsd:double ;
+        sh:datatype xsd:decimal ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path schema:longitude ;
-        sh:datatype xsd:double ;
+        sh:datatype xsd:decimal ;
         sh:minCount 1 ;
     ] ;
     sh:property [

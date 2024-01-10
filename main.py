@@ -8,7 +8,7 @@ from restaurant_checker import  parseRestaurantData, parseMenu
 from server_data.server import init_serv
 import uvicorn
 from urllib.parse import urlsplit
-
+import decimal
 
 # ProfessionalService
 
@@ -27,7 +27,10 @@ if __name__ == "__main__":
 
     print("Looking for existing data\n")
     if os.path.exists("server_data/data_semweb.db"):
-        g.parse("server_data/data_semweb.db", format='turtle')
+        try:
+            g.parse("server_data/data_semweb.db", format='turtle')
+        except Exception as e:
+            pass
         print("Existing data loaded : \n")
         exist = True
         #print(g.serialize())
@@ -222,6 +225,8 @@ if __name__ == "__main__":
         r = input("Do you want to save the current data parsed ? (y/n)")
 
         if r in ["y", "Y", "yes", "YES", "Yes", "o", "oui", "Oui", "OUI"]:
+            if exist:
+                os.remove("server_data/data_semweb.db")
             g.serialize(destination="server_data/data_semweb.db", format="turtle")
         
         rep = input("Do you want to run the TripleStore ? (y/n)")
