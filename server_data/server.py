@@ -6,9 +6,33 @@ import uvicorn
 def init_serv(app, g):
 
     example_query = """
-            SELECT DISTINCT ?s ?p ?o WHERE {
-                    ?s ?p ?o 
-            }
+            PREFIX sh1: <http://schema.org/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+            SELECT DISTINCT ?restaurant ?longitude ?latitude ?deliveryPrice ?deliveryMinimalCost ?hours ?food
+            WHERE {{
+                ?restaurant a sh1:Restaurant ;
+                sh1:address ?add;
+                sh1:openingHours ?hours;
+                sh1:servesCuisine ?food;
+                sh1:potentialAction ?pa.
+
+                ?add a sh1:Place ;
+                sh1:latitude ?latitude ;
+                sh1:longitude ?longitude .
+
+                ?pa sh1:PriceSpecification ?ps.
+
+                ?ps sh1:price ?deliveryPrice.
+
+                ?ps sh1:eligibleTransactionVolume ?etv.
+
+                ?etv sh1:price ?deliveryMinimalCost .
+
+            }}
+            LIMIT 1000
+            OFFSET 0
     """
     example_queries = {
     }

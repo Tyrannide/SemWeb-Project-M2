@@ -8,7 +8,7 @@ from restaurant_checker import  parseRestaurantData, parseMenu
 from server_data.server import init_serv
 import uvicorn
 from urllib.parse import urlsplit
-import decimal
+
 
 # ProfessionalService
 
