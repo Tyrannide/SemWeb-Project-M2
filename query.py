@@ -10,6 +10,7 @@ from rdflib import Graph, URIRef
 import random
 import string
 import shutil
+import requests
 
 
 def affiche_restau(l):
@@ -46,6 +47,7 @@ def convert_co(adress):
 if __name__ == "__main__":
 
     #print(len(sys.argv))
+    urlWorked = False
     adressPart1 = None
     adressPart2 = None
     longitude = 0
@@ -65,11 +67,27 @@ if __name__ == "__main__":
                     if param[-4:] == ".ttl" and os.path.isfile(param):
                         fileFound = True
                         file = param
+                    elif param[0:4] == "http":
+                        headers = {
+                            "Accept": "text/turtle"
+                        }
+                        url = "http://193.49.165.77:3000/semweb/BONNEFOY-MARINE-data"
+                        try:
+                            response = requests.get(url, headers=headers)
+                            if response.status_code == 200:
+                                print("Request successful.")
+                                urlWorked = True
+                            else:
+                                print(f"Request failed with status code: {response.status_code}")
+                                print(response.text)
+
+                        except requests.RequestException as e:
+                            print(f"Request failed: {e}")
                 else:
                     if fileFound:
                         print("A preference file was found")
                     else:
-                        print("No preference file found, classical process running")
+                        print("No preference file found, going classical process")
             else:
                 print("Classical running")
         elif ('--ranked-by' in sys.argv) and ('price' in sys.argv):
@@ -113,6 +131,36 @@ if __name__ == "__main__":
         # test : "50 rue Conte Grandchamp, 42000 Saint-Étienne"
         address = input("Can you give your address?\n>>>")
         adress = convert_co(address)
+
+    elif urlWorked:
+        g = Graph()
+        g.parse(response.text, format='turtle')
+
+        for sub, pred, obj in g.triples((None, None, None)):
+                if pred == URIRef(sh+'streetAddress'):
+                    adressPart1 = str(obj[:])
+                if pred == URIRef(sh+'addressLocality'):
+                    adressPart3 = str(obj[:])
+                if pred == URIRef(sh+'postalCode'):
+                    adressPart2 = str(obj[:])
+                if pred == URIRef(sh+'itemOfferred'):
+                    items = obj[:]
+                if pred == URIRef(sh+'maxPrice'):
+                    max_price = float(obj[:])
+                if pred == URIRef(sh+'geoRadius'):
+                    max_range = float(obj[:])/1000
+                if pred == URIRef(sh+'longitude'):
+                    longitude = float(obj[:])
+                if pred == URIRef(sh+'latitude'):
+                    latitude = float(obj[:])
+        else:
+                if adressPart1 is not None and adressPart2 is not None and adressPart3 is not None:
+                    address = adressPart1 + ", " + adressPart2 + " " + adressPart3
+                    adress = convert_co(address)
+                elif adressPart1 is not None and adressPart2 is not None:
+                    address = adressPart1 + ", " + adressPart2
+                else:
+                    adress = (longitude, latitude)
 
     else:
         print("Lecture préférence")

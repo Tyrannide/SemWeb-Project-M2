@@ -20,7 +20,7 @@ pip install sparqlwrapper==2.0.0
 
 ## Typical use case :
 ```
-Usage of query.py : python query.py --ranked-by (distance|price) [--schema-pref] [file]
+Usage of query.py : python query.py --ranked-by (distance|price) [--schema-pref] [file|uri]
 
 Usage of collect.py : python collect.py [data_file] (must be .json)
                       python collect.py [URL] (can be coopcycle url (default if url not found), or any coopcycle_url/api)
