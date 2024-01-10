@@ -6,6 +6,10 @@ from geopy import Nominatim
 from geopy.distance import geodesic
 import sys
 
+
+def usage():
+    print("Wrong parmaters for the program query:\nYou should call it like:\n\tpython query.py --ranked-by (distance|price)")
+
 def convert_co(adress):
     convert = Nominatim(user_agent="ME_and_ME")
     co = convert.geocode(adress)
@@ -20,6 +24,25 @@ def convert_co(adress):
 if __name__ == "__main__":
 
     print(len(sys.argv))
+
+    orderQuery = ""
+    sortingDistance = False
+
+    if len(sys.argv) == 3:
+        print("Requête simple trier soit par prix, soit par distance")
+        if '--ranked-by' and 'distance' in sys.argv:
+            print("Filtre par distance")
+            sortingDistance = True
+        elif '--ranked-by' and 'price' in sys.argv:
+            print("Filtre par prix")
+            orderQuery = "ORDER BY ?deliveryPrice ?deliveryMinimalCost"
+        else:
+            usage()
+            exit()
+    else:
+        usage()
+        exit()
+
     print('Argument List:', str(sys.argv))
 
     day_index = {"Mo" : 1,"Tu": 2, "We": 3, "Th": 4, "Fr": 5, "Sa": 6, "Su": 7}
@@ -30,7 +53,7 @@ if __name__ == "__main__":
     adress = convert_co("50 rue Conte Grandchamp, 42000 Saint-Étienne")
     
     # food = input("Please enter what type of food you want : ")
-    max_price = 18
+    max_price = 20
     
     date = "10-01-2024"
     date = datetime.strptime(date, "%d-%m-%Y")
@@ -44,24 +67,35 @@ if __name__ == "__main__":
 
 
     sparq.setQuery(f"""
-        PREFIX schema: <https://schema.org/>
+        PREFIX sh1: <https://schema.org/>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-        SELECT DISTINCT ?restaurant ?longitude ?latitude ?address ?accessPrice
+        SELECT DISTINCT ?restaurant ?longitude ?latitude ?deliveryPrice ?deliveryMinimalCost ?hours 
         WHERE {{
-                ?restaurant a schema:Restaurant ;
-                schema:address ?add;
-                schema:potentialAction ?pa.
-                
-                ?add a schema:Place ;
-                schema:address ?address ;
-                schema:latitude ?latitude ;
-                schema:longitude ?longitude .  
-
-                ?pa a schema:PriceSpecification .     
-                
+            ?restaurant a sh1:Restaurant ;
+            sh1:address ?add;
+            sh1:openingHours ?hours;
+            sh1:potentialAction ?pa.
+            
+            ?add a sh1:Place ;
+            sh1:latitude ?latitude ;
+            sh1:longitude ?longitude .
+            
+            ?pa sh1:PriceSpecification ?ps.
+            
+            ?ps sh1:price ?deliveryPrice.
+            
+            ?ps sh1:eligibleTransactionVolume ?etv.
+            
+            ?etv sh1:price ?deliveryMinimalCost .
+                   
+            FILTER (
+                ?deliveryMinimalCost < {max_price}
+            )
+        
         }}
+        {orderQuery}
         LIMIT 1000
         OFFSET 0        
         """)
@@ -118,7 +152,8 @@ if __name__ == "__main__":
     #    exit()
     
     results = [r for r in res["results"]["bindings"] if geodesic(adress, (float(r["latitude"]["value"]),float(r["longitude"]["value"]))).kilometers <= max_range]
-    
+    if sortingDistance:
+        results.sort(key=lambda r: geodesic(adress, (float(r["latitude"]["value"]), float(r["longitude"]["value"]))).kilometers)
     for r in results :
         print(r)
 
